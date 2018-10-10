@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+	<title>Minusdede</title>
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename = 'styles.css') }}">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<script type="text/javascript" src="/static/Scripts/filter.js"></script>
+	<script type="text/javascript" src="/static/Scripts/jquery-3.3.1.min.js"></script>
+	<script type="text/javascript" src="/static/Scripts/display.js"></script>
+</head>
+<body>
+	<!-- Header menu -->
+	<nav class="header-menu">
+		<!-- Menu / Logo / Search -->
+		<div class="header-navbar" id="static-header">
+			<input type="image" alt="Menu Button" class="icon" id="menu-icon" name="Menu Button" src="/static/Images/Icons/menu.svg" onclick="toggleSideMenu();">
+			<a href="/">
+				<img class="header-logo" src="/static/Images/logo.png" alt="Logo">
+			</a>
+			<form action="/search/pattern" method="POST" id="search-form">
+				<input type="search" class="header-search" name="pattern" placeholder="Search...">
+				<input type="image" name="search-icon" class="icon" id="search-icon" src="/static/Images/Icons/search.svg" alt="Search Icon">	
+			</form>
+			<!-- <a href="./film-search.html"><img alt="Search Button" class="icon" id="search-icon" src="/static/Images/Icons/search.svg"></a> -->
+		</div>
+		<!-- Logged-in:  -->
+		<div class="header-navbar" id="logged-header">
+			
+			<a class="header-nav-link" href="profile.html">
+				<img src="/static/Images/Icons/user.svg" alt="User Icon">
+				<p class="nav-link-text">Jon Doe</p>
+			</a>
+			<!-- Useless button -->
+			<a class="header-nav-link" href="">
+				<img src="/static/Images/Icons/shopping-cart.svg" id="shopping-cart-img" alt="Shopping Cart Icon">
+				<p class="nav-link-text">Shopping Cart</p>
+			</a>
+			
+			<!-- TODO: link to not-logged home -->
+			<a class="header-nav-link" id="last-nav-link" href="index_not_logged_in.html">
+				<img src="/static/Images/Icons/log-out.svg" alt="Log Out Icon">
+				<p class="nav-link-text">Log Out</p>
+			</a>
+
+
+		</div>
+
+		<div class="empty-header-block"></div>
+
+		<hr>
+	</nav>
+
+	<!-- Side menu -->
+	<div class="side-menu" id="side-menu">
+		{% block side_menu %}{% endblock %}
+	</div>
+	
+
+
+	 <!-- Main content -->
+	<div id="main-content">
+
+		{% block main_content %}{% endblock %}
+		
+	</div>
+
+	<footer class="footer">
+		<div class="footer-container">
+			<div class="footer-content">
+				<a class="footer-text"> Privacy policy</a>
+			</div>
+			<div class="footer-content">
+				<p class="footer-text"> Contact us: +34&nbsp;675&nbsp;234&nbsp;111</p>
+			</div>
+			<div class="footer-content">
+				<p class="footer-text"> © 2018 MinusDeDe </p>
+			</div>
+		</div>
+	</footer>
+
+</body>
+</html>

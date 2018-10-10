@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+
+{% block side_menu %}
+	<!-- Film filters -->
+	<nav id="filters">
+		<!-- Categories -->
+		<div class="side-nav-title" id="sidebar-categories-title" onclick="toggleCategories()">
+			<p>Categories</p>
+			<img class="sidebar-icons" src="/static/Images/Icons/minus.svg" id="minus-icon" alt="Minus Icon">
+		</div>
+
+		<!-- Default categories list -->
+
+		<form id="filter_category" method="POST" action="/search/categories">
+		<ul class="categories-list">
+			<li class="child" onclick="filterCategory('Action')">Action</li>
+			<li class="child" onclick="filterCategory('Adventures')">Adventures</li>
+			<li class="child" onclick="filterCategory('Comedy')">Comedy</li>
+			<li class="child" onclick="filterCategory('Drama')">Drama</li>
+			<li class="child" onclick="filterCategory('Fantasy')">Fantasy</li>
+			<li class="child" onclick="filterCategory('Indie')">Indie</li>
+			<li class="child" onclick="filterCategory('Horror')">Horror</li>
+			<li class="child" onclick="filterCategory('Romance')">Romance</li>
+			<li class="child" onclick="filterCategory('Sci-Fi')">Sci-Fi</li>
+			<li class="child" onclick="filterCategory('Thriller')">Thriller</li>
+		</ul>
+		</form>
+
+		<hr>
+		<!-- Year selection -->
+		<div class="side-nav-title">
+			<p>Year:</p>
+			<input type="number" id="year-selection" name="year-selection" class="sidebar-selection" min="1990" max="2018" value="2018">
+			<input type="image" src="/static/Images/Icons/search.svg" class="sidebar-icons" alt="Search Icon" onclick="filter(document.getElementById('year-selection').value, 'year');">
+		</div>
+
+		<hr>
+		<!-- Rating selection -->
+		<div class="side-nav-title">
+			<p>Rating:</p>
+			<select class="sidebar-selection" id="rating-selection">
+				<option selected="selected">1</option>
+				<option>2</option>
+				<option>3</option>
+				<option>4</option>
+				<option>5</option>
+			</select>
+			<input type="image" class="sidebar-icons" src="/static/Images/Icons/star.svg" alt="Star Icon" onclick="filter(document.getElementById('rating-selection').value, 'rating');">
+		</div>
+
+		<!-- Categories list for mobile devices -->
+		<div id="categories-list-mobile">
+			<hr>
+			<form id="filter_category_mobile" method="POST" action="/categories">
+			<ul class="categories-list-mobile">
+				<li class="child" onclick="filterCategory('Action')">Action</li>
+				<li class="child" onclick="filterCategory('Adventures')">Adventures</li>
+				<li class="child" onclick="filterCategory('Comedy')">Comedy</li>
+				<li class="child" onclick="filterCategory('Drama')">Drama</li>
+				<li class="child" onclick="filterCategory('Fantasy')">Fantasy</li>
+				<li class="child" onclick="filterCategory('Indie')">Indie</li>
+				<li class="child" onclick="filterCategory('Horror')">Horror</li>
+				<li class="child" onclick="filterCategory('Romance')">Romance</li>
+				<li class="child" onclick="filterCategory('Sci-Fi')">Sci-Fi</li>
+				<li class="child" onclick="filterCategory('Thriller')">Thriller</li>
+			</ul>
+			</form>
+		</div>
+	</nav>
+{% endblock %}
+	
+
+
+{% block main_content %}
+
+	{% if message != '' %}
+		<div class="films-row" id="title-row">
+			<p id="search-title">{{ message }}</p>
+		</div>
+		<hr>
+	{% endif %}
+	<!-- Films -->
+	{% for i in range( (number / 4.0) | round(0, 'ceil') | int) %}
+		<div class="film-row">
+		{% for j in range(4) %}
+			{% if (i*4 + j) < number %}
+				<div class="film-container">
+					<div class="film-view">
+						<img src="{{ films[i*4+j]['poster'] }}" alt="{{films[i*4+j]['title']}} Image">
+						<a class="film-button">Buy</a>
+						<a href="./film-page.html" class="film-button">Info</a>
+
+					</div>
+					<div class="film-subview">
+						<p class="film-caption"> {{ films[i*4+j]['title'] }}</p>
+						<p class="film-caption"> {{ films[i*4+j]['rating'] }}/5 <img class="film-rating-star" src="/static/Images/Icons/star.svg"></p>
+					</div>
+				</div>
+			{% endif %}
+		{% endfor %}
+		</div>
+	{% endfor %}
+	
+	<div class="empty-film-row">
+	</div>
+		
+{% endblock %}
